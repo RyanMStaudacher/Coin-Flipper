@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
     private int desiredRotations = 5;
     private bool shouldRotate = false;
     private bool hasChangedSprite = false;
+    private bool hasIncrementedRotations = false;
 
 	// Use this for initialization
 	void Start ()
@@ -37,8 +38,6 @@ public class Coin : MonoBehaviour
 
         if (rotations < desiredRotations && shouldRotate)
         {
-            Debug.Log(hasChangedSprite);
-            
             if(this.transform.eulerAngles.x > 89f && this.transform.eulerAngles.x < 91f ||
                 this.transform.eulerAngles.x < -89f && this.transform.eulerAngles.x > -91f)
             {
@@ -52,19 +51,29 @@ public class Coin : MonoBehaviour
                     sRenderer.sprite = heads;
                     hasChangedSprite = true;
                 }
-            }
 
-            if (this.transform.eulerAngles.x > -1f && this.transform.eulerAngles.x < 1f ||
-                this.transform.eulerAngles.x > 179f && this.transform.eulerAngles.x < -179f)
+                if(hasIncrementedRotations)
+                {
+                    hasIncrementedRotations = false;
+                }
+            }
+            else if (this.transform.eulerAngles.x > -1f && this.transform.eulerAngles.x < 1f || 
+                this.transform.eulerAngles.x > 177f && this.transform.eulerAngles.x < 179f)
             {
-                Debug.Log("hey");
-                rotations++;
                 hasChangedSprite = false;
+
+                if(!hasIncrementedRotations)
+                {
+                    Debug.Log("hey");
+                    rotations++;
+                    hasIncrementedRotations = true;
+                }
             }
 
-            this.transform.Rotate(new Vector3(coinFlipSpeed * Time.deltaTime, 0, 0));
+            this.transform.Rotate(Vector3.right * coinFlipSpeed * Time.deltaTime);
         }
-        else if(rotations >= desiredRotations)
+
+        if (rotations >= desiredRotations)
         {
             shouldRotate = false;
             this.transform.rotation = Quaternion.Euler(Vector3.zero);
