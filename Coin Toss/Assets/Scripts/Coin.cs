@@ -4,80 +4,96 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [Tooltip("How fast the coin spins when flipped.")]
-    [SerializeField] private float coinFlipSpeed = 5f;
+    [Tooltip("How fast the coin will flip")]
+    [SerializeField] private float coinFlipSpeed = 50f;
+
+    [Tooltip("How many times the coin will flip")]
+    [SerializeField] private float desiredNumberOfFlips = 5f;
 
     [SerializeField] private Sprite heads;
     [SerializeField] private Sprite tails;
 
-    private SpriteRenderer sRenderer;
-    private int rotations = 0;
-    private int desiredRotations = 5;
-    private bool shouldRotate = false;
-    private bool hasChangedSprite = false;
-    private bool hasIncrementedRotations = false;
+    [SerializeField] private List<AudioClip> flipSoundEffects;
+    [SerializeField] private List<AudioClip> landSoundEffects;
 
-	// Use this for initialization
-	void Start ()
+    private List<Sprite> randomList;
+    private SpriteRenderer sRenderer;
+    private Vector3 desiredRotation;
+    private AudioSource audioSource;
+    private bool shouldRotate = false;
+    private float flips = 0f;
+
+    private void Start()
     {
         sRenderer = GetComponent<SpriteRenderer>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        CoinFlip();
-	}
+        audioSource = GetComponent<AudioSource>();
+        randomList = new List<Sprite>();
+        randomList.Add(heads);
+        randomList.Add(tails);
+    }
 
-    private void CoinFlip()
+    // Update is called once per frame
+    private void Update ()
     {
-        if(Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 && shouldRotate == false || Input.GetMouseButtonDown(0) && shouldRotate == false)
         {
             shouldRotate = true;
+
+            int r = Random.Range(0, flipSoundEffects.Count);
+            audioSource.clip = flipSoundEffects[r];
+            audioSource.Play();
         }
 
-        if (rotations < desiredRotations && shouldRotate)
+        FlipCoin();
+    }
+
+    private void FlipCoin()
+    {
+        if(flips < desiredNumberOfFlips && shouldRotate)
         {
-            if(this.transform.eulerAngles.x > 89f && this.transform.eulerAngles.x < 91f ||
-                this.transform.eulerAngles.x < -89f && this.transform.eulerAngles.x > -91f)
+            Vector3 ninetyDegrees = new Vector3(90, 0, 0);
+            Vector3 zeroDegrees = new Vector3(0, 0, 0);
+            float step = coinFlipSpeed * Time.deltaTime;
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(desiredRotation), step);
+
+            if(desiredRotation == ninetyDegrees && transform.rotation == Quaternion.Euler(desiredRotation) && flips < desiredNumberOfFlips - 1)
             {
-                if (sRenderer.sprite == heads && !hasChangedSprite)
+                desiredRotation = zeroDegrees;
+
+                if(sRenderer.sprite == heads)
                 {
                     sRenderer.sprite = tails;
-                    hasChangedSprite = true;
                 }
-                else if (sRenderer.sprite == tails && !hasChangedSprite)
+                else if(sRenderer.sprite == tails)
                 {
                     sRenderer.sprite = heads;
-                    hasChangedSprite = true;
-                }
-
-                if(hasIncrementedRotations)
-                {
-                    hasIncrementedRotations = false;
                 }
             }
-            else if (this.transform.eulerAngles.x > -1f && this.transform.eulerAngles.x < 1f || 
-                this.transform.eulerAngles.x > 177f && this.transform.eulerAngles.x < 179f)
+            else if (desiredRotation == ninetyDegrees && transform.rotation == Quaternion.Euler(desiredRotation) && flips >= desiredNumberOfFlips - 1)
             {
-                hasChangedSprite = false;
+                int r = Random.Range(0, 2);
+                Debug.Log(r);
 
-                if(!hasIncrementedRotations)
-                {
-                    Debug.Log("hey");
-                    rotations++;
-                    hasIncrementedRotations = true;
-                }
+                sRenderer.sprite = randomList[r];
+                desiredRotation = zeroDegrees;
             }
-
-            this.transform.Rotate(Vector3.right * coinFlipSpeed * Time.deltaTime);
+            else if(desiredRotation == zeroDegrees && transform.rotation == Quaternion.Euler(desiredRotation))
+            {
+                flips++;
+                desiredRotation = ninetyDegrees;
+            }
+            
         }
-
-        if (rotations >= desiredRotations)
+        else if(flips >= desiredNumberOfFlips)
         {
             shouldRotate = false;
             this.transform.rotation = Quaternion.Euler(Vector3.zero);
-            rotations = 0;
+            flips = 0f;
+
+            int r = Random.Range(0, landSoundEffects.Count);
+            audioSource.clip = landSoundEffects[r];
+            audioSource.Play();
         }
     }
 }

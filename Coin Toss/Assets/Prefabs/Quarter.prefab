@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a886e07a7a32f24dac7bda8fdf79eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinFlipSpeed: 500
-  desiredNumberOfFlips: 5
+  coinFlipSpeed: 2250
+  desiredNumberOfFlips: 20
   heads: {fileID: 21300000, guid: 12172b0f21389a44fb5dce065f7be44e, type: 3}
   tails: {fileID: 21300000, guid: 23e9653574955174cad88213dfd64a55, type: 3}
 --- !u!212 &212842867680565946
