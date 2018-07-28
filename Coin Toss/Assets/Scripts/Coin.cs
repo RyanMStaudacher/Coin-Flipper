@@ -73,7 +73,6 @@ public class Coin : MonoBehaviour
             else if (desiredRotation == ninetyDegrees && transform.rotation == Quaternion.Euler(desiredRotation) && flips >= desiredNumberOfFlips - 1)
             {
                 int r = Random.Range(0, 2);
-                Debug.Log(r);
 
                 sRenderer.sprite = randomList[r];
                 desiredRotation = zeroDegrees;
