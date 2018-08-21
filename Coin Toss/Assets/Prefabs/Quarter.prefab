@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 82326095103502464}
   m_Layer: 0
   m_Name: Quarter
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinFlipSpeed: 2250
   desiredNumberOfFlips: 20
-  heads: {fileID: 21300000, guid: 7b879241063d5064a957e97f9fbd9787, type: 3}
-  tails: {fileID: 21300000, guid: 877d7ef4c0b86844698f5ee2c6662892, type: 3}
+  heads: {fileID: 21300000, guid: 110457bd9fa0fc24686e50d5a1c4c8cc, type: 3}
+  tails: {fileID: 21300000, guid: 797a0cf57c18fbe4d8ac3b56a3c5b1dc, type: 3}
   flipSoundEffects:
   - {fileID: 8300000, guid: bc14c3762ed610d47946b4d37d4ab89f, type: 3}
   - {fileID: 8300000, guid: 18a27ca4c62b20944b6435196db187b3, type: 3}
@@ -195,12 +195,12 @@ SpriteRenderer:
   m_SortingLayerID: -1594664699
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7b879241063d5064a957e97f9fbd9787, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 110457bd9fa0fc24686e50d5a1c4c8cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 11.11, y: 11.11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

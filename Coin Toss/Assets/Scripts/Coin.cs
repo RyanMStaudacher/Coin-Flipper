@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource))]
 public class Coin : MonoBehaviour
 {
+    public static event UnityAction<int> headsOrTails;
+
     [Tooltip("How fast the coin will flip")]
     [SerializeField] private float coinFlipSpeed = 50f;
 
@@ -89,6 +94,18 @@ public class Coin : MonoBehaviour
             shouldRotate = false;
             this.transform.rotation = Quaternion.Euler(Vector3.zero);
             flips = 0f;
+
+            if(headsOrTails != null)
+            {
+                if(sRenderer.sprite == heads)
+                {
+                    headsOrTails.Invoke(0);
+                }
+                else if(sRenderer.sprite == tails)
+                {
+                    headsOrTails.Invoke(1);
+                }
+            }
 
             int r = Random.Range(0, landSoundEffects.Count);
             audioSource.clip = landSoundEffects[r];
