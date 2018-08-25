@@ -11,7 +11,7 @@ public class Ads : MonoBehaviour
 	void Start ()
     {
 #if UNITY_ANDROID
-        string appId = "ca-app-pub-3940256099942544/6300978111";
+        string appId = "ca-app-pub-2845057716092352~1314775198";
 #elif UNITY_IPHONE
             string appId = "ca-app-pub-3940256099942544~1458002511";
 #else
@@ -27,7 +27,7 @@ public class Ads : MonoBehaviour
 	private void RequestBanner()
     {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+        string adUnitId = "ca-app-pub-2845057716092352~1314775198";
 #elif UNITY_IPHONE
             string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
