@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2
+  bundleVersion: 0.3
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -155,7 +155,7 @@ PlayerSettings:
     Android: com.LazyBriefcaseGames.CoinToss
     Standalone: com.Company.ProductName
   buildNumber: {}
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -243,7 +243,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: E:/Stuff/Programming Projects/Coin-Flipper/Coin Toss/CoinTossKey.keystore
+  AndroidKeystoreName: E:/Stuff/Coin Toss Stuff/CoinTossKey.keystore
   AndroidKeyaliasName: cointosskey
   AndroidTVCompatibility: 0
   AndroidIsGame: 0
